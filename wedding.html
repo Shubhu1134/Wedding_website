@@ -493,76 +493,221 @@
       }
 
       .nav {
-        position: fixed;
-        top: 16px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: min(1160px, calc(100% - 28px));
-        z-index: 800;
+        position: sticky;
+        top: 0;
+        width: calc(100% - 24px);
+        margin-inline: 12px;
+        z-index: 900;
+        min-height: 122px;
+        padding: 16px 22px 14px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 10px 12px 10px 18px;
-        border: 1px solid rgba(198, 151, 47, 0.38);
-        border-radius: 999px;
-        background: rgba(255, 250, 240, 0.74);
-        backdrop-filter: blur(18px);
-        box-shadow: 0 12px 38px rgba(75, 6, 25, 0.14);
+        gap: 14px;
+        border-top: 1px solid rgba(246, 211, 122, 0.5);
+        border-bottom: 1px solid rgba(214, 168, 79, 0.28);
+        border-radius: 4px;
+        background:
+          radial-gradient(circle at 18% 130%, rgba(214, 168, 79, 0.12), transparent 40%),
+          radial-gradient(circle at 85% -28%, rgba(246, 211, 122, 0.08), transparent 40%),
+          linear-gradient(115deg, #3b080b 0%, #320609 46%, #240507 100%);
+        box-shadow:
+          0 14px 26px rgba(0, 0, 0, 0.28),
+          inset 0 1px 0 rgba(246, 211, 122, 0.12);
+        overflow: hidden;
+      }
+      .nav > * {
+        position: relative;
+        z-index: 1;
+      }
+      .nav::before,
+      .nav::after {
+        content: "";
+        position: absolute;
+        width: 74px;
+        height: 74px;
+        pointer-events: none;
+        border: 1px solid rgba(214, 168, 79, 0.62);
+        opacity: 0.85;
+      }
+      .nav::before {
+        top: -24px;
+        left: -22px;
+        border-right: none;
+        border-bottom: none;
+        border-radius: 14px 0 0 0;
+      }
+      .nav::after {
+        right: -22px;
+        bottom: -24px;
+        border-left: none;
+        border-top: none;
+        border-radius: 0 0 14px 0;
+      }
+      .nav:has(.brand)::selection {
+        background: rgba(246, 211, 122, 0.2);
+      }
+      .nav::before,
+      .nav::after,
+      .nav .brand-line,
+      .nav .brand-divider,
+      .nav-links a + a::before {
+        filter: drop-shadow(0 0 2px rgba(246, 211, 122, 0.18));
+      }
+      .nav::after,
+      .nav::before {
+        pointer-events: none;
+      }
+      .nav:focus-within {
+        box-shadow:
+          0 16px 28px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(246, 211, 122, 0.14);
+      }
+      .nav::before {
+        box-shadow: -1px -1px 0 rgba(246, 211, 122, 0.25);
+      }
+      .nav::after {
+        box-shadow: 1px 1px 0 rgba(246, 211, 122, 0.25);
+      }
+      .nav::after,
+      .nav::before {
+        background: transparent;
       }
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 9px;
-        font-family: "Cormorant Garamond", serif;
-        font-weight: 800;
-        font-size: 1.32rem;
-        color: var(--maroon-deep);
+        gap: 15px;
+        color: #f4d48a;
         text-decoration: none;
         white-space: nowrap;
       }
       .brand-mark {
-        width: 34px;
-        height: 34px;
+        width: 86px;
+        height: 86px;
+        border-radius: 50%;
         display: grid;
         place-items: center;
-        border-radius: 50%;
-        background: radial-gradient(circle, var(--gold-soft), var(--gold));
-        color: var(--maroon-deep);
-        font-family: "Noto Serif Devanagari", serif;
-        box-shadow: 0 8px 20px rgba(198, 151, 47, 0.28);
+        border: 1px solid rgba(246, 211, 122, 0.62);
+        background:
+          radial-gradient(circle at 34% 30%, rgba(255, 237, 187, 0.62), transparent 46%),
+          radial-gradient(circle at center, #5b1015, #2c0709 74%);
+        box-shadow:
+          inset 0 0 24px rgba(246, 211, 122, 0.22),
+          0 10px 24px rgba(0, 0, 0, 0.36);
       }
-      .nav-links {
-        display: flex;
-        align-items: center;
+      .brand-mark span {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #f6d37a;
+        letter-spacing: 0.08em;
+      }
+      .brand-text {
+        display: grid;
         gap: 4px;
       }
-      .nav-links a {
-        padding: 9px 12px;
-        border-radius: 999px;
-        color: var(--maroon-deep);
-        text-decoration: none;
-        font-size: 0.88rem;
-        font-weight: 700;
-        transition:
-          background 0.2s ease,
-          color 0.2s ease;
+      .brand-kicker {
+        font-size: 0.75rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(246, 211, 122, 0.8);
       }
-      .nav-links a:hover,
-      .nav-links a.active {
-        background: rgba(143, 23, 51, 0.09);
-        color: var(--maroon);
+      .brand-title {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 700;
+        font-size: 3rem;
+        line-height: 1;
+        color: #f6d37a;
+        letter-spacing: 0.02em;
+        text-shadow: 0 1px 10px rgba(214, 168, 79, 0.24);
+      }
+      .brand-line {
+        width: 210px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #d6a84f 28%, #f6d37a 50%, #d6a84f 72%, transparent);
+      }
+      .brand-divider {
+        width: 1px;
+        height: 84px;
+        background: linear-gradient(180deg, transparent, rgba(246, 211, 122, 0.8), transparent);
       }
       .menu-toggle {
         display: none;
-        width: 44px;
-        height: 44px;
+        margin-left: auto;
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.82);
-        color: var(--maroon-deep);
-        font-size: 1.15rem;
+        border: 1px solid rgba(214, 168, 79, 0.62);
+        background: rgba(22, 3, 4, 0.5);
+        color: #f6d37a;
+        font-size: 1.2rem;
         cursor: pointer;
+      }
+      .nav-links {
+        position: relative;
+        z-index: 1;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 0;
+      }
+      .nav-links a {
+        position: relative;
+        min-width: 104px;
+        padding: 8px 15px 11px;
+        display: grid;
+        place-items: center;
+        text-decoration: none;
+        color: rgba(246, 211, 122, 0.75);
+        font-size: 0.92rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color 0.22s ease;
+      }
+      .nav-links a + a::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 20%;
+        bottom: 20%;
+        width: 1px;
+        background: linear-gradient(180deg, transparent, rgba(214, 168, 79, 0.45), transparent);
+      }
+      .nav-icon {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 5px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.35;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .nav-links a:hover {
+        color: #f2cf77;
+      }
+      .nav-links a.active {
+        color: #f6d37a;
+      }
+      .nav-links a.active::after {
+        content: "";
+        position: absolute;
+        left: 20%;
+        right: 20%;
+        bottom: 2px;
+        height: 1.5px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, transparent, #f6d37a 30%, #f6d37a 70%, transparent);
+        box-shadow: 0 0 10px rgba(246, 211, 122, 0.45);
+      }
+      .nav-links a.active span::after {
+        content: "✦";
+        display: block;
+        line-height: 0.7;
+        margin-top: 3px;
+        font-size: 0.52rem;
+        color: rgba(246, 211, 122, 0.95);
+        text-shadow: 0 0 7px rgba(246, 211, 122, 0.35);
       }
 
       .hero {
@@ -2009,26 +2154,47 @@
         .venue-info {
           padding: 28px;
         }
-        .nav-links {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: calc(100% + 10px);
-          display: none;
-          flex-direction: column;
-          align-items: stretch;
-          padding: 12px;
-          border-radius: 22px;
-          border: 1px solid rgba(198, 151, 47, 0.38);
-          background: rgba(255, 250, 240, 0.96);
-          box-shadow: var(--soft-shadow);
+        .nav {
+          padding: 12px 16px;
+          min-height: 102px;
         }
-        .nav-links.open {
-          display: flex;
+        .brand-mark {
+          width: 70px;
+          height: 70px;
+        }
+        .brand-title {
+          font-size: 1.58rem;
+        }
+        .brand-divider {
+          display: none;
         }
         .menu-toggle {
           display: inline-grid;
           place-items: center;
+        }
+        .nav-links {
+          position: absolute;
+          left: 14px;
+          right: 14px;
+          top: calc(100% + 10px);
+          display: none;
+          margin-left: 0;
+          padding: 10px;
+          border-radius: 16px;
+          border: 1px solid rgba(214, 168, 79, 0.45);
+          background: linear-gradient(140deg, rgba(57, 8, 11, 0.98), rgba(27, 5, 6, 0.98));
+          box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .nav-links.open {
+          display: grid;
+        }
+        .nav-links a {
+          min-width: 0;
+          border-radius: 10px;
+        }
+        .nav-links a + a::before {
+          display: none;
         }
       }
 
@@ -2040,11 +2206,33 @@
           width: min(100% - 26px, 1160px);
         }
         .nav {
-          top: 10px;
-          width: calc(100% - 18px);
+          min-height: 92px;
+          padding: 10px 12px;
         }
         .brand {
-          font-size: 1.05rem;
+          gap: 10px;
+        }
+        .brand-mark {
+          width: 56px;
+          height: 56px;
+        }
+        .brand-mark span {
+          font-size: 1.5rem;
+        }
+        .brand-kicker {
+          font-size: 0.53rem;
+          letter-spacing: 0.18em;
+        }
+        .brand-title {
+          font-size: 1.22rem;
+        }
+        .brand-line {
+          width: 128px;
+        }
+        .menu-toggle {
+          width: 40px;
+          height: 40px;
+          font-size: 1rem;
         }
         .hero {
           padding-top: 92px;
@@ -2190,9 +2378,15 @@
 
     <header>
       <nav class="nav" aria-label="मुख्य नेविगेशन">
-        <a href="#home" class="brand" aria-label="Home"
-          ><span class="brand-mark">शुभ</span><span>भारती ✦ विवेक</span></a
-        >
+        <a href="#home" class="brand" aria-label="Home">
+          <span class="brand-mark"><span>BV</span></span>
+          <span class="brand-text">
+            <span class="brand-kicker">Wedding Invitation</span>
+            <span class="brand-title">Bharti and Vivek</span>
+            <span class="brand-line" aria-hidden="true"></span>
+          </span>
+        </a>
+        <span class="brand-divider" aria-hidden="true"></span>
         <button
           class="menu-toggle"
           id="menuToggle"
@@ -2203,13 +2397,57 @@
           ☰
         </button>
         <div class="nav-links" id="navLinks">
-          <a href="#home">Home</a>
-          <a href="#blessing">आशीर्वाद</a>
-          <a href="#couple">जोड़ी</a>
-          <a href="#events">कार्यक्रम</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#venue">स्थान</a>
-          <a href="#rsvp">RSVP</a>
+          <a href="#home">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 10.8 12 3l9 7.8"></path>
+              <path d="M6.7 9.9V21h10.6V9.9"></path>
+            </svg>
+            <span>Home</span>
+          </a>
+          <a href="#story">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 5.5h6.6a3 3 0 0 1 2.4 1.2A3 3 0 0 1 16.4 5.5H19v13h-2.6a3.4 3.4 0 0 0-2.4 1"></path>
+              <path d="M5 5.5v13h2.6a3.4 3.4 0 0 1 2.4 1"></path>
+            </svg>
+            <span>Story</span>
+          </a>
+          <a href="#countdown" class="active">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="13" r="7"></circle>
+              <path d="M12 9.8v3.7l2.5 1.4"></path>
+              <path d="M9 3h6"></path>
+            </svg>
+            <span>Countdown</span>
+          </a>
+          <a href="#events">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+              <path d="M8 3v4M16 3v4M4 10h16"></path>
+            </svg>
+            <span>Events</span>
+          </a>
+          <a href="#gallery">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+              <circle cx="9" cy="10" r="1.6"></circle>
+              <path d="m5.5 17 4.5-4 3.2 2.8 2.7-2.2 2.6 3.4"></path>
+            </svg>
+            <span>Gallery</span>
+          </a>
+          <a href="#venue">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10z"></path>
+              <circle cx="12" cy="11" r="2.3"></circle>
+            </svg>
+            <span>Venue</span>
+          </a>
+          <a href="#rsvp">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16v10H4z"></path>
+              <path d="m4 8 8 6 8-6"></path>
+            </svg>
+            <span>Rsvp</span>
+          </a>
         </div>
       </nav>
     </header>
@@ -2988,6 +3226,8 @@
         });
         $$("#navLinks a").forEach((link) =>
           link.addEventListener("click", () => {
+            $$("#navLinks a").forEach((a) => a.classList.remove("active"));
+            link.classList.add("active");
             links.classList.remove("open");
             toggle.setAttribute("aria-expanded", "false");
           }),
@@ -3003,9 +3243,13 @@
         const update = () => {
           const total = document.documentElement.scrollHeight - innerHeight;
           progress.style.width = `${total > 0 ? (scrollY / total) * 100 : 0}%`;
-          let active = "home";
+          let active = "countdown";
           sections.forEach((section) => {
-            if (scrollY >= section.offsetTop - 160) active = section.id;
+            const trigger =
+              section.id === "home"
+                ? Math.max(section.offsetTop, 240)
+                : section.offsetTop - 160;
+            if (scrollY >= trigger) active = section.id;
           });
           navLinks.forEach((a) =>
             a.classList.toggle(
